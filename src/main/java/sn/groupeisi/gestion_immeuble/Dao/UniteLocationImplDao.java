@@ -99,5 +99,12 @@ public class UniteLocationImplDao implements IRepository<UniteLocation> {
                 .setParameter("pid", proprietaireId)
                 .getSingleResult();
     }
+    public List<UniteLocation> getByImmeuble(int immeubleId) {
+        return entityManager.createQuery(
+                        "SELECT u FROM UniteLocation u WHERE u.immeuble.id = :id", UniteLocation.class)
+                .setParameter("id", immeubleId)
+                .getResultList();
+    }
+
 
 }

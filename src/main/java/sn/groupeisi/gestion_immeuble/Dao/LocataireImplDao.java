@@ -61,6 +61,19 @@ public class LocataireImplDao implements IRepository<Locataire> {
         return entityManager.createQuery("SELECT COUNT(l) FROM Locataire l", Long.class)
                 .getSingleResult();
     }
+    public Locataire findByUtilisateur(int utilisateurId) {
+        try {
+            return entityManager.createQuery(
+                            "SELECT l FROM Locataire l WHERE l.utilisateur.id = :userId", Locataire.class)
+                    .setParameter("userId", utilisateurId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            // Si aucun résultat, retourne null
+            return null;
+        }
+    }
+
+
 
 
 }

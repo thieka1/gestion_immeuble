@@ -9,14 +9,25 @@
 
 <form action="demande?action=save" method="post">
 
-    <label for="locataire">Locataire :</label>
-    <select name="locataireId" id="locataire" required>
-        <c:forEach var="loc" items="${locataires}">
-            <option value="${loc.id}">
-                    ${loc.utilisateur.nom} ${loc.utilisateur.prenom}
-            </option>
-        </c:forEach>
-    </select>
+    <c:choose>
+        <c:when test="${not empty locataire}">
+            <%-- Locataire connecté --%>
+            <input type="hidden" name="locataireId" value="${locataire.id}">
+            <p>Demande de : ${locataire.utilisateur.nom} ${locataire.utilisateur.prenom}</p>
+        </c:when>
+
+        <c:otherwise>
+            <%-- Admin --%>
+            <label for="locataire">Locataire :</label>
+            <select name="locataireId" id="locataire" required>
+                <c:forEach var="loc" items="${locataires}">
+                    <option value="${loc.id}">
+                            ${loc.utilisateur.nom} ${loc.utilisateur.prenom}
+                    </option>
+                </c:forEach>
+            </select>
+        </c:otherwise>
+    </c:choose>
 
     <br><br>
 
@@ -29,7 +40,7 @@
         </c:forEach>
     </select>
 
-
+    <br><br>
     <button type="submit">Envoyer la demande</button>
 </form>
 

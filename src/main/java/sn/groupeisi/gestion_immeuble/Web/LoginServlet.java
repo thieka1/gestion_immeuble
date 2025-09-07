@@ -37,12 +37,10 @@ public class LoginServlet  extends HttpServlet {
             return;
         }
 
-        // Création de la session
+
+        // Stocker l'objet complet dans la session
         HttpSession session = req.getSession();
-        session.setAttribute("id", user.getId());
-        session.setAttribute("nom", user.getNom());
-        session.setAttribute("prenom", user.getPrenom());
-        session.setAttribute("role", user.getRole());
+        session.setAttribute("currentUser", user);
 
         // Redirection vers le dashboard
         resp.sendRedirect("dashboard");
