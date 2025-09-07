@@ -94,6 +94,30 @@ public class PaiementImpleDao implements IRepository<Paiement> {
             return 1; // succès
         }
         entityManager.getTransaction().rollback();
-        return 0; // échec si paiement introuvable
+        return 0;
     }
+    public long countEnAttente() {
+        return entityManager.createQuery(
+                        "SELECT COUNT(p) FROM Paiement p WHERE p.statut = :statut", Long.class)
+                .setParameter("statut", StatutPaiement.EN_ATTENTE)
+                .getSingleResult();
+    }
+
+    public double sumRevenusByProprietaire(int proprietaireId) {
+        Double total = entityManager.createQuery(
+                        "SELECT SUM(p.montant) FROM Paiement p WHERE p.contratLocation.unite.immeuble.proprietaire.id = :pid", Double.class)
+                .setParameter("pid", proprietaireId)
+                .getSingleResult();
+        return total != null ? total : 0.0;
+    }
+
+
+    public long countByLocataire(int locataireId) {
+        return entityManager.createQuery(
+                        "SELECT COUNT(p) FROM Paiement p WHERE p.contratLocation.locataire.id = :lid", Long.class)
+                .setParameter("lid", locataireId)
+                .getSingleResult();
+    }
+
+
 }

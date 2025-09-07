@@ -87,5 +87,17 @@ public class UniteLocationImplDao implements IRepository<UniteLocation> {
         entityManager.getTransaction().rollback();
         return 0; // échec : unité introuvable
     }
+    public long countDisponibles() {
+        return entityManager.createQuery(
+                        "SELECT COUNT(u) FROM UniteLocation u WHERE u.statut = :statut", Long.class)
+                .setParameter("statut", StatutUnite.DISPONIBLE)
+                .getSingleResult();
+    }
+    public long countByProprietaire(int proprietaireId) {
+        return entityManager.createQuery(
+                        "SELECT COUNT(i) FROM Immeuble i WHERE i.proprietaire.id = :pid", Long.class)
+                .setParameter("pid", proprietaireId)
+                .getSingleResult();
+    }
 
 }

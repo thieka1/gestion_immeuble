@@ -93,7 +93,7 @@ public class DemandeLocationImplDao implements IRepository<DemandeLocation> {
                 .getResultList();
     }
 
-    //UpdateStatutDemande
+
     public int updateStatutDemande(int id, String nouveauStatut) {
         entityManager.getTransaction().begin();
         DemandeLocation demandeDB = entityManager.find(DemandeLocation.class, id);
@@ -108,4 +108,12 @@ public class DemandeLocationImplDao implements IRepository<DemandeLocation> {
         entityManager.getTransaction().rollback();
         return 0; // échec : demande non trouvée
     }
+
+    public long countByLocataire(int locataireId) {
+        return entityManager.createQuery(
+                        "SELECT COUNT(d) FROM DemandeLocation d WHERE d.locataire.id = :lid", Long.class)
+                .setParameter("lid", locataireId)
+                .getSingleResult();
+    }
+
 }

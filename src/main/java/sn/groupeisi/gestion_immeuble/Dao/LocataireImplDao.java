@@ -57,4 +57,10 @@ public class LocataireImplDao implements IRepository<Locataire> {
     public Locataire get(int id) {
         return entityManager.find(Locataire.class, id);
     }
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(l) FROM Locataire l", Long.class)
+                .getSingleResult();
+    }
+
+
 }

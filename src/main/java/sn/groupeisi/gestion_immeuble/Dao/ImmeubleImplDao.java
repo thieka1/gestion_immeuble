@@ -73,4 +73,11 @@ public class ImmeubleImplDao implements IRepository<Immeuble> {
         }
         return im;
     }
+
+    public long countByProprietaire(int proprietaireId) {
+        return entityManager.createQuery(
+                        "SELECT COUNT(i) FROM Immeuble i WHERE i.proprietaire.id = :pid", Long.class)
+                .setParameter("pid", proprietaireId)
+                .getSingleResult();
+    }
 }

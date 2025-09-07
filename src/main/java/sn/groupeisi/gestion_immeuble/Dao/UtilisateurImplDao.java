@@ -87,4 +87,16 @@ public class UtilisateurImplDao implements IRepository<Utilisateur> {
             return null;
         }
     }
+    public Utilisateur login(String email, String password) {
+        try {
+            Utilisateur user = findByEmail(email);
+            if (user != null && BCrypt.checkpw(password, user.getPassword())) {
+                return user; // Authentification réussie
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; // échec de connexion
+    }
+
 }

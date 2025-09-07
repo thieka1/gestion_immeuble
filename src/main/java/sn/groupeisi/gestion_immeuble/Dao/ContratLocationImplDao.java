@@ -95,5 +95,20 @@ public class ContratLocationImplDao implements IRepository<ContratLocation> {
         entityManager.getTransaction().rollback();
         return 0;
     }
+    public long countActifs() {
+        return entityManager.createQuery(
+                        "SELECT COUNT(c) FROM ContratLocation c WHERE c.statut = :statut", Long.class)
+                .setParameter("statut", StatutContrat.TERMINEE)
+                .getSingleResult();
+    }
+
+    // Compter les contrats d’un locataire
+    public long countByLocataire(int locataireId) {
+        return entityManager.createQuery(
+                        "SELECT COUNT(c) FROM ContratLocation c WHERE c.locataire.id = :lid", Long.class)
+                .setParameter("lid", locataireId)
+                .getSingleResult();
+    }
+
 
 }

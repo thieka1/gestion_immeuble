@@ -1,365 +1,354 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/navbar.jsp" />
+
 <html>
 <head>
-  <title>Dashboard Locataire</title>
+  <title>Dashboard Immeubles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
+    * {
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
     }
 
     .container {
       max-width: 1400px;
       margin: 0 auto;
+      padding: 0 20px;
     }
 
-    .welcome-header {
-      text-align: center;
-      color: white;
+    /* Header */
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 25px 0;
+      margin-bottom: 30px;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    .btn-add {
+      background: #3498db;
+      color: #fff;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-add:hover {
+      background: #2980b9;
+    }
+
+    /* Grid */
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
       margin-bottom: 40px;
     }
 
-    .welcome-header h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    /* Property Card */
+    .property-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
     }
 
-    .welcome-header p {
-      font-size: 1.2em;
-      opacity: 0.9;
+    .property-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
     }
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      margin-bottom: 30px;
+    .property-image {
+      height: 160px;
+      overflow: hidden;
+      position: relative;
     }
 
-    .info-card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+    .property-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    .property-body {
+      padding: 16px;
     }
 
-    .card-header {
+    .property-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #2c3e50;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .property-info {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #666;
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      gap: 8px;
     }
 
-    .card-icon {
-      font-size: 2.5em;
-      margin-right: 15px;
-    }
-
-    .card-title {
-      font-size: 1.3em;
-      font-weight: bold;
-      color: #2c3e50;
-      margin: 0;
-    }
-
-    .rental-info {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    .info-item {
+    .property-info .icon {
+      font-size: 12px;
+      width: 14px;
       text-align: center;
-      padding: 15px;
-      background: #f8f9fa;
-      border-radius: 10px;
+      color: #3498db;
     }
 
-    .info-label {
-      font-size: 0.9em;
+    .equipments {
+      margin-top: 12px;
+    }
+
+    .equipment-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .equipment-tag {
+      background: #ecf0f1;
       color: #7f8c8d;
-      font-weight: 600;
-      margin-bottom: 5px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 500;
     }
 
-    .info-value {
-      font-size: 1.2em;
-      font-weight: bold;
-      color: #2c3e50;
+    .property-actions {
+      padding: 12px 16px;
+      border-top: 1px solid #f0f0f0;
+      background: #fafafa;
+      display: flex;
+      gap: 8px;
     }
 
-    .payment-status {
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 0.9em;
-    }
-
-    .status-paid {
-      background: #d5f4e6;
-      color: #27ae60;
-    }
-
-    .status-pending {
-      background: #ffeaa7;
-      color: #f39c12;
-    }
-
-    .status-overdue {
-      background: #fab1a0;
-      color: #e74c3c;
-    }
-
-    .actions-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .action-card {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      cursor: pointer;
+    .btn-action {
+      padding: 6px 12px;
+      border-radius: 3px;
       text-decoration: none;
-      color: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
     }
 
-    .action-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    .btn-edit {
+      background: #fff;
+      color: #3498db;
+      border-color: #3498db;
     }
 
-    .action-icon {
-      font-size: 3em;
-      margin-bottom: 15px;
+    .btn-edit:hover {
+      background: #3498db;
+      color: #fff;
     }
 
-    .action-title {
-      font-size: 1.1em;
-      font-weight: bold;
-      color: #2c3e50;
+    .btn-delete {
+      background: #fff;
+      color: #e74c3c;
+      border-color: #e74c3c;
+    }
+
+    .btn-delete:hover {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+    }
+
+    .empty-state .icon {
+      font-size: 48px;
+      color: #bdc3c7;
+      margin-bottom: 16px;
+    }
+
+    .empty-state h3 {
+      font-size: 18px;
+      font-weight: 400;
+      color: #7f8c8d;
       margin-bottom: 8px;
     }
 
-    .action-desc {
-      font-size: 0.9em;
-      color: #7f8c8d;
+    .empty-state p {
+      color: #95a5a6;
+      margin-bottom: 24px;
     }
 
-    .recent-activity {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-
-    .activity-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 25px;
-    }
-
-    .activity-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .activity-item {
-      display: flex;
-      align-items: center;
-      padding: 15px 0;
-      border-bottom: 1px solid #f1f2f6;
-    }
-
-    .activity-item:last-child {
-      border-bottom: none;
-    }
-
-    .activity-icon {
-      font-size: 1.5em;
-      margin-right: 15px;
-      width: 40px;
-      text-align: center;
-    }
-
-    .activity-content {
-      flex: 1;
-    }
-
-    .activity-title {
-      font-weight: 600;
-      color: #2c3e50;
-      margin-bottom: 3px;
-    }
-
-    .activity-date {
-      font-size: 0.8em;
-      color: #7f8c8d;
-    }
-
-    @media (max-width: 768px) {
-      .dashboard-grid {
-        grid-template-columns: 1fr;
+    /* Responsive */
+    @media (max-width: 1400px) {
+      .properties-grid {
+        grid-template-columns: repeat(4, 1fr);
       }
+    }
 
-      .rental-info {
-        grid-template-columns: 1fr;
+    @media (max-width: 1100px) {
+      .properties-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
+    }
 
-      .actions-section {
+    @media (max-width: 800px) {
+      .properties-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .properties-grid {
         grid-template-columns: 1fr;
       }
 
       .container {
-        padding: 0 10px;
+        padding: 0 15px;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .btn-add {
+        text-align: center;
+        justify-content: center;
       }
     }
+    .btn-request {
+      background: #27ae60;       /* vert pour la demande */
+      color: #fff;
+      border-color: #27ae60;
+    }
+
+    .btn-request:hover {
+      background: #1e8449;
+      color: #fff;
+    }
+
+
+    /* Simple icons using CSS */
+    .icon-location::before { content: "📍"; }
+    .icon-building::before { content: "🏢"; }
+    .icon-user::before { content: "👤"; }
+    .icon-tools::before { content: "⚙️"; }
+    .icon-plus::before { content: "+"; }
+    .icon-empty::before { content: "🏢"; }
   </style>
 </head>
 <body>
 
+<div class="header">
+  <div class="container">
+    <div class="header-content">
+      <h1 class="page-title">Gestion des Immeubles</h1>
+
+    </div>
+  </div>
+</div>
+
 <div class="container">
-  <div class="welcome-header">
-    <h1>🏠 Bienvenue, ${sessionScope.user.prenom}!</h1>
-    <p>Voici un aperçu de votre location</p>
-  </div>
-
-  <div class="dashboard-grid">
-    <!-- Informations sur la location -->
-    <div class="info-card">
-      <div class="card-header">
-        <div class="card-icon">🏡</div>
-        <h2 class="card-title">Ma Location</h2>
-      </div>
-      <div class="rental-info">
-        <div class="info-item">
-          <div class="info-label">Unité</div>
-          <div class="info-value">${currentRental.unite.numero}</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Immeuble</div>
-          <div class="info-value">${currentRental.unite.immeuble.nom}</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Loyer</div>
-          <div class="info-value">${currentRental.unite.loyerMensuel}€</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Début bail</div>
-          <div class="info-value">
-            <fmt:formatDate value="${currentRental.dateDebut}" pattern="dd/MM/yyyy"/>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Statut des paiements -->
-    <div class="info-card">
-      <div class="card-header">
-        <div class="card-icon">💳</div>
-        <h2 class="card-title">Paiements</h2>
-      </div>
-      <div class="rental-info">
-        <div class="info-item">
-          <div class="info-label">Ce mois</div>
-          <div class="info-value">
-                        <span class="payment-status ${currentPayment.statut == 'PAYE' ? 'status-paid' : (currentPayment.statut == 'EN_ATTENTE' ? 'status-pending' : 'status-overdue')}">
-                          ${currentPayment.statut}
-                        </span>
-          </div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Échéance</div>
-          <div class="info-value">
-            <fmt:formatDate value="${currentPayment.dateEcheance}" pattern="dd/MM"/>
-          </div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Montant</div>
-          <div class="info-value">${currentPayment.montant}€</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Solde</div>
-          <div class="info-value" style="color: ${accountBalance >= 0 ? '#27ae60' : '#e74c3c'}">
-            ${accountBalance}€
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Actions rapides -->
-  <div class="actions-section">
-    <a href="payments.jsp" class="action-card">
-      <div class="action-icon">💰</div>
-      <div class="action-title">Effectuer un paiement</div>
-      <div class="action-desc">Payez votre loyer en ligne</div>
-    </a>
-
-    <a href="maintenance.jsp" class="action-card">
-      <div class="action-icon">🔧</div>
-      <div class="action-title">Demande de maintenance</div>
-      <div class="action-desc">Signalez un problème</div>
-    </a>
-
-    <a href="documents.jsp" class="action-card">
-      <div class="action-icon">📄</div>
-      <div class="action-title">Mes documents</div>
-      <div class="action-desc">Contrats et reçus</div>
-    </a>
-
-    <a href="contact.jsp" class="action-card">
-      <div class="action-icon">📞</div>
-      <div class="action-title">Contact</div>
-      <div class="action-desc">Contactez la gestion</div>
-    </a>
-  </div>
-
-  <!-- Activité récente -->
-  <div class="recent-activity">
-    <div class="activity-header">
-      <div class="card-icon">📋</div>
-      <h2 class="card-title">Activité récente</h2>
-    </div>
-    <ul class="activity-list">
-      <c:forEach items="${recentActivities}" var="activity">
-        <li class="activity-item">
-          <div class="activity-icon">
-            <c:choose>
-              <c:when test="${activity.type == 'PAYMENT'}">💳</c:when>
-              <c:when test="${activity.type == 'MAINTENANCE'}">🔧</c:when>
-              <c:when test="${activity.type == 'DOCUMENT'}">📄</c:when>
-              <c:otherwise>📋</c:otherwise>
-            </c:choose>
-          </div>
-          <div class="activity-content">
-            <div class="activity-title">${activity.description}</div>
-            <div class="activity-date">
-              <fmt:formatDate value="${activity.date}" pattern="dd/MM/yyyy à HH:mm"/>
+  <c:choose>
+    <c:when test="${not empty immeubles}">
+      <div class="properties-grid">
+        <c:forEach items="${immeubles}" var="im">
+          <div class="property-card">
+            <div class="property-image">
+              <img src="uploads/${im.image}" alt="Image de ${im.nom}">
             </div>
+
+            <div class="property-body">
+              <div class="property-name">${im.nom}</div>
+
+              <div class="property-info">
+                <span class="icon icon-location"></span>
+                <span>${im.adresse}</span>
+              </div>
+
+              <div class="property-info">
+                <span class="icon icon-building"></span>
+                <span>${im.nombreEtages} étages</span>
+              </div>
+
+              <div class="property-info">
+                <span class="icon icon-user"></span>
+                <span>${im.proprietaire.nom} ${im.proprietaire.prenom}</span>
+              </div>
+
+              <c:if test="${not empty im.equipements}">
+                <div class="equipments">
+                  <div class="property-info">
+                    <span class="icon icon-tools"></span>
+                    <div class="equipment-list">
+                      <c:forEach items="${im.equipements}" var="equipement" varStatus="status">
+                        <span class="equipment-tag">${equipement}</span>
+                      </c:forEach>
+                    </div>
+                  </div>
+                </div>
+              </c:if>
+            </div>
+
+            <div class="property-actions">
+              <a href="?action=add&id=${im.id}" class="btn-action btn-request">Faire une demande</a>
+            </div>
+
           </div>
-        </li>
-      </c:forEach>
-    </ul>
-  </div>
+        </c:forEach>
+      </div>
+    </c:when>
+    <c:otherwise>
+      <div class="empty-state">
+        <div class="icon icon-empty"></div>
+        <h3>Aucun immeuble</h3>
+        <p>Commencez par ajouter votre premier immeuble.</p>
+        <a href="?action=add" class="btn-add">
+          <span class="icon-plus"></span>
+          Ajouter un immeuble
+        </a>
+      </div>
+    </c:otherwise>
+  </c:choose>
 </div>
 
 </body>
