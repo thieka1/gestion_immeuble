@@ -1,9 +1,17 @@
 package sn.groupeisi.gestion_immeuble.Dao;
 
+<<<<<<< HEAD
 import jakarta.persistence.EntityManager;
 import sn.groupeisi.gestion_immeuble.Entities.Immeuble;
 import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
 
+=======
+
+import sn.groupeisi.gestion_immeuble.Entities.Immeuble;
+import sn.groupeisi.gestion_immeuble.Entities.UniteLocation;
+import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
+import javax.persistence.EntityManager;
+>>>>>>> 0249102 (design de l'application)
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,4 +88,20 @@ public class ImmeubleImplDao implements IRepository<Immeuble> {
                 .setParameter("pid", proprietaireId)
                 .getSingleResult();
     }
+<<<<<<< HEAD
+=======
+
+    public List<Immeuble> findByProprietaireId(Integer proprietaireId) {
+        return entityManager.createQuery("SELECT i FROM Immeuble i WHERE i.proprietaire.id = :id", Immeuble.class)
+                .setParameter("id", proprietaireId)
+                .getResultList();
+    }
+
+
+
+
+
+
+
+>>>>>>> 0249102 (design de l'application)
 }

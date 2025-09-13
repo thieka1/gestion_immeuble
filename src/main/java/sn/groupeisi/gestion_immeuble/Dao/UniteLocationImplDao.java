@@ -1,10 +1,17 @@
 package sn.groupeisi.gestion_immeuble.Dao;
 
+<<<<<<< HEAD
 import jakarta.persistence.EntityManager;
+=======
+>>>>>>> 0249102 (design de l'application)
 import sn.groupeisi.gestion_immeuble.Entities.StatutUnite;
 import sn.groupeisi.gestion_immeuble.Entities.UniteLocation;
 import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
 
+<<<<<<< HEAD
+=======
+import javax.persistence.EntityManager;
+>>>>>>> 0249102 (design de l'application)
 import java.util.List;
 
 public class UniteLocationImplDao implements IRepository<UniteLocation> {
@@ -99,6 +106,24 @@ public class UniteLocationImplDao implements IRepository<UniteLocation> {
                 .setParameter("pid", proprietaireId)
                 .getSingleResult();
     }
+<<<<<<< HEAD
+=======
+
+    public List<UniteLocation> findByProprietaireId(Integer proprietaireId) {
+        return entityManager.createQuery(
+                        "SELECT u FROM UniteLocation u " +
+                                "WHERE u.immeuble.proprietaire.id = :id", UniteLocation.class)
+                .setParameter("id", proprietaireId)
+                .getResultList();
+    }
+
+    public List<UniteLocation> findDisponibles() {
+        return entityManager.createQuery("SELECT u FROM UniteLocation u WHERE u.statut = :statut", UniteLocation.class)
+                .setParameter("statut", StatutUnite.DISPONIBLE)
+                .getResultList();
+    }
+
+>>>>>>> 0249102 (design de l'application)
     public List<UniteLocation> getByImmeuble(int immeubleId) {
         return entityManager.createQuery(
                         "SELECT u FROM UniteLocation u WHERE u.immeuble.id = :id", UniteLocation.class)
@@ -106,5 +131,23 @@ public class UniteLocationImplDao implements IRepository<UniteLocation> {
                 .getResultList();
     }
 
+<<<<<<< HEAD
+=======
+    // Dans UniteLocationImplDao
+    public UniteLocation findLastUniteByImmeuble(int immeubleId) {
+        try {
+            return entityManager.createQuery(
+                            "SELECT u FROM UniteLocation u WHERE u.immeuble.id = :id ORDER BY u.numero DESC",
+                            UniteLocation.class)
+                    .setParameter("id", immeubleId)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null; // pas d'unité existante
+        }
+    }
+
+
+>>>>>>> 0249102 (design de l'application)
 
 }

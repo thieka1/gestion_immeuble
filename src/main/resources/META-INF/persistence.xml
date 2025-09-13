@@ -21,4 +21,8 @@
         </properties>
     </persistence-unit>
 
+<<<<<<< HEAD
 </persistence>
+=======
+</persistence>
+>>>>>>> 0249102 (design de l'application)

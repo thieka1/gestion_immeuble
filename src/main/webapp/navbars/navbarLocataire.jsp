@@ -1,0 +1,264 @@
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 280px;
+        background: linear-gradient(180deg, #1e3c72, #2a5298);
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .sidebar-header {
+        padding: 25px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sidebar-header .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .sidebar-header .logo::before {
+        content: "🏠";
+        font-size: 28px;
+    }
+
+    .sidebar-nav {
+        padding: 20px 0;
+    }
+
+    .sidebar-nav .nav-section {
+        margin-bottom: 30px;
+    }
+
+    .sidebar-nav .section-title {
+        color: rgba(255,255,255,0.6);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 0 20px;
+        margin-bottom: 15px;
+    }
+
+    .sidebar-nav .nav-item {
+        display: block;
+        color: rgba(255,255,255,0.9);
+        text-decoration: none;
+        padding: 12px 20px;
+        margin: 2px 10px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .sidebar-nav .nav-item::before {
+        font-size: 18px;
+        width: 20px;
+        text-align: center;
+    }
+
+    .sidebar-nav .nav-item[href*="contrat"]::before { content: "📋"; }
+    .sidebar-nav .nav-item[href*="paiement"]::before { content: "💳"; }
+    .sidebar-nav .nav-item[href*="demande"]::before { content: "📝"; }
+    .sidebar-nav .nav-item[href*="dashboard"]::before { content: "📊"; }
+
+    .sidebar-nav .nav-item:hover {
+        background: rgba(255,255,255,0.1);
+        color: #ffd700;
+        transform: translateX(5px);
+    }
+
+    .sidebar-nav .nav-item.active {
+        background: rgba(255,215,0,0.2);
+        color: #ffd700;
+        border-left: 4px solid #ffd700;
+    }
+
+    .sidebar-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logout-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #e74c3c;
+        color: white !important;
+        padding: 12px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .logout-btn::before {
+        content: "🚪";
+        font-size: 16px;
+    }
+
+    .logout-btn:hover {
+        background: #c0392b;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+    }
+
+    /* User Info Section */
+    .user-info {
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        text-align: center;
+    }
+
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-size: 24px;
+    }
+
+    .user-name {
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .user-role {
+        color: rgba(255,255,255,0.7);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Responsive pour tablettes */
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 70px;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar:hover {
+            width: 280px;
+        }
+
+        .sidebar-header .logo span,
+        .sidebar-nav .section-title,
+        .sidebar-nav .nav-item span,
+        .logout-btn span,
+        .user-info {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar:hover .sidebar-header .logo span,
+        .sidebar:hover .sidebar-nav .section-title,
+        .sidebar:hover .sidebar-nav .nav-item span,
+        .sidebar:hover .logout-btn span,
+        .sidebar:hover .user-info {
+            opacity: 1;
+        }
+    }
+
+    /* Adaptation du contenu principal */
+    .main-content {
+        margin-left: 280px;
+        transition: margin-left 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+        .main-content {
+            margin-left: 70px;
+        }
+    }
+</style>
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <a href="${pageContext.request.contextPath}/dashboard/locataire" class="logo">
+            <span>Espace Locataire</span>
+        </a>
+    </div>
+
+    <!-- User Info Section -->
+    <div class="user-info">
+        <div class="user-avatar">👤</div>
+        <div class="user-name">Locataire</div>
+        <div class="user-role">Mon Espace</div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-section">
+            <div class="section-title">Tableau de Bord</div>
+            <a href="${pageContext.request.contextPath}/dashboard/locataire" class="nav-item">
+                <span>Vue d'ensemble</span>
+            </a>
+        </div>
+
+        <div class="nav-section">
+            <div class="section-title">Ma Location</div>
+            <a href="${pageContext.request.contextPath}/contrat?action=list" class="nav-item">
+                <span>Mes Contrats</span>
+            </a>
+            <a href="${pageContext.request.contextPath}/paiement?action=list" class="nav-item">
+                <span>Mes Paiements</span>
+            </a>
+        </div>
+
+        <div class="nav-section">
+            <div class="section-title">Demandes</div>
+            <a href="${pageContext.request.contextPath}/demande?action=list" class="nav-item">
+                <span>Mes Demandes</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="${pageContext.request.contextPath}/logout" class="logout-btn">
+            <span>Déconnexion</span>
+        </a>
+    </div>
+</div>
+
+<!-- Script pour gérer l'état actif -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPath = window.location.pathname;
+        const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
+
+        navItems.forEach(item => {
+            const href = item.getAttribute('href');
+            if (href && currentPath.includes(href.split('?')[0])) {
+                item.classList.add('active');
+            }
+        });
+    });
+</script>
+

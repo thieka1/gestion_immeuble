@@ -1,10 +1,19 @@
 package sn.groupeisi.gestion_immeuble.Dao;
 
+<<<<<<< HEAD
 import jakarta.persistence.EntityManager;
+=======
+
+
+>>>>>>> 0249102 (design de l'application)
 import sn.groupeisi.gestion_immeuble.Entities.DemandeLocation;
 import sn.groupeisi.gestion_immeuble.Entities.StatutDemande;
 import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
 
+<<<<<<< HEAD
+=======
+import javax.persistence.EntityManager;
+>>>>>>> 0249102 (design de l'application)
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,4 +125,26 @@ public class DemandeLocationImplDao implements IRepository<DemandeLocation> {
                 .getSingleResult();
     }
 
+<<<<<<< HEAD
+=======
+
+    public List<DemandeLocation> findByProprietaireId(Integer proprietaireId) {
+        return entityManager.createQuery(
+                        "SELECT d FROM DemandeLocation d " +
+                                "WHERE d.unite.immeuble.proprietaire.id = :id", DemandeLocation.class)
+                .setParameter("id", proprietaireId)
+                .getResultList();
+    }
+
+    public List<DemandeLocation> findByLocataireId(Integer locataireId) {
+        return entityManager.createQuery(
+                        "SELECT d FROM DemandeLocation d WHERE d.locataire.id = :locataireId",
+                        DemandeLocation.class)
+                .setParameter("locataireId", locataireId)
+                .getResultList();
+    }
+
+
+
+>>>>>>> 0249102 (design de l'application)
 }

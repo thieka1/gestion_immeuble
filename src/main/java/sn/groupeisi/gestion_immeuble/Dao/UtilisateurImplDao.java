@@ -1,12 +1,23 @@
 package sn.groupeisi.gestion_immeuble.Dao;
 
 
+<<<<<<< HEAD
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.mindrot.jbcrypt.BCrypt;
 import sn.groupeisi.gestion_immeuble.Entities.Utilisateur;
 import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
 
+=======
+
+import org.mindrot.jbcrypt.BCrypt;
+import sn.groupeisi.gestion_immeuble.Entities.Role;
+import sn.groupeisi.gestion_immeuble.Entities.Utilisateur;
+import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+>>>>>>> 0249102 (design de l'application)
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,4 +110,14 @@ public class UtilisateurImplDao implements IRepository<Utilisateur> {
         return null; // échec de connexion
     }
 
+<<<<<<< HEAD
+=======
+    public long countByRole(Role role) {
+        return entityManager.createQuery(
+                        "SELECT COUNT(u) FROM Utilisateur u WHERE u.role = :role", Long.class)
+                .setParameter("role", role)
+                .getSingleResult();
+    }
+
+>>>>>>> 0249102 (design de l'application)
 }
