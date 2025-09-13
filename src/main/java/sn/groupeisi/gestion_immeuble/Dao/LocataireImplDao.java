@@ -1,19 +1,12 @@
 package sn.groupeisi.gestion_immeuble.Dao;
 
-<<<<<<< HEAD
-import jakarta.persistence.EntityManager;
-=======
 
->>>>>>> 0249102 (design de l'application)
 import org.mindrot.jbcrypt.BCrypt;
 import sn.groupeisi.gestion_immeuble.Entities.Locataire;
 import sn.groupeisi.gestion_immeuble.Entities.Utilisateur;
 import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
 
-<<<<<<< HEAD
-=======
 import javax.persistence.EntityManager;
->>>>>>> 0249102 (design de l'application)
 import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
@@ -69,10 +62,7 @@ public class LocataireImplDao implements IRepository<Locataire> {
         return entityManager.createQuery("SELECT COUNT(l) FROM Locataire l", Long.class)
                 .getSingleResult();
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 0249102 (design de l'application)
     public Locataire findByUtilisateur(int utilisateurId) {
         try {
             return entityManager.createQuery(
@@ -86,9 +76,4 @@ public class LocataireImplDao implements IRepository<Locataire> {
     }
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 0249102 (design de l'application)
 }

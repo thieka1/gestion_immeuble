@@ -2,10 +2,7 @@ package sn.groupeisi.gestion_immeuble.Web;
 
 import org.mindrot.jbcrypt.BCrypt;
 import sn.groupeisi.gestion_immeuble.Dao.UtilisateurImplDao;
-<<<<<<< HEAD
-=======
 import sn.groupeisi.gestion_immeuble.Entities.Role;
->>>>>>> 0249102 (design de l'application)
 import sn.groupeisi.gestion_immeuble.Entities.Utilisateur;
 
 import javax.servlet.ServletException;
@@ -16,27 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-<<<<<<< HEAD
-
-@WebServlet("/login")
-public class LoginServlet  extends HttpServlet {
-=======
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
->>>>>>> 0249102 (design de l'application)
 
     private final UtilisateurImplDao userDao = new UtilisateurImplDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Affiche le formulaire de login
-<<<<<<< HEAD
-        req.getRequestDispatcher("auth/login.jsp").forward(req, resp);
-=======
 
         req.getRequestDispatcher("/auth/login.jsp").forward(req, resp);
 
->>>>>>> 0249102 (design de l'application)
     }
 
     @Override
@@ -48,19 +35,6 @@ public class LoginServlet extends HttpServlet {
 
         if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
             req.setAttribute("error", "Email ou mot de passe incorrect !");
-<<<<<<< HEAD
-            req.getRequestDispatcher("auth/login.jsp").forward(req, resp);
-            return;
-        }
-
-
-        // Stocker l'objet complet dans la session
-        HttpSession session = req.getSession();
-        session.setAttribute("currentUser", user);
-
-        // Redirection vers le dashboard
-        resp.sendRedirect("dashboard");
-=======
             req.getRequestDispatcher("/auth/login.jsp").forward(req, resp);
             return;
         }
@@ -89,6 +63,5 @@ public class LoginServlet extends HttpServlet {
             case LOCATAIRE -> resp.sendRedirect(req.getContextPath() + "/dashboard/locataire");
             default -> resp.sendRedirect(req.getContextPath() + "/auth/login.jsp?error=role");
         }
->>>>>>> 0249102 (design de l'application)
     }
 }

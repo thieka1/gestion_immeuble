@@ -1,18 +1,11 @@
 package sn.groupeisi.gestion_immeuble.Entities;
 
-<<<<<<< HEAD
-import jakarta.persistence.*;
-=======
 
->>>>>>> 0249102 (design de l'application)
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<<<<<<< HEAD
-=======
 import javax.persistence.*;
->>>>>>> 0249102 (design de l'application)
 import java.time.LocalDate;
 
 @Entity

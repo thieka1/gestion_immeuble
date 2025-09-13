@@ -4,24 +4,14 @@ package sn.groupeisi.gestion_immeuble.Web;
 import sn.groupeisi.gestion_immeuble.Dao.ContratLocationImplDao;
 import sn.groupeisi.gestion_immeuble.Dao.LocataireImplDao;
 import sn.groupeisi.gestion_immeuble.Dao.UniteLocationImplDao;
-<<<<<<< HEAD
-import sn.groupeisi.gestion_immeuble.Entities.ContratLocation;
-import sn.groupeisi.gestion_immeuble.Entities.Locataire;
-import sn.groupeisi.gestion_immeuble.Entities.StatutContrat;
-import sn.groupeisi.gestion_immeuble.Entities.UniteLocation;
-=======
 import sn.groupeisi.gestion_immeuble.Entities.*;
->>>>>>> 0249102 (design de l'application)
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-=======
 import javax.servlet.http.HttpSession;
->>>>>>> 0249102 (design de l'application)
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -88,9 +78,6 @@ public class ContratLocationServlet extends HttpServlet {
 
         switch (action) {
             case "list":
-<<<<<<< HEAD
-                List<ContratLocation> contrats = contratDao.getAll();
-=======
                 HttpSession session = req.getSession(false);
                 if (session == null) {
                     resp.sendRedirect(req.getContextPath() + "/login.jsp");
@@ -109,15 +96,11 @@ public class ContratLocationServlet extends HttpServlet {
                     contrats = contratDao.getAll(); // admin
                 }
 
->>>>>>> 0249102 (design de l'application)
                 req.setAttribute("contrats", contrats);
                 req.getRequestDispatcher("contrat/contrat.jsp").forward(req, resp);
                 break;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0249102 (design de l'application)
             case "add":
                 req.setAttribute("locataires", locataireDao.getAll());
                 req.setAttribute("unites", uniteDao.getAll());

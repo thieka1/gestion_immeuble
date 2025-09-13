@@ -1,55 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-<html>
-<head>
-    <title>Nouvelle demande de location</title>
-</head>
-<body>
-<h2>Nouvelle demande de location</h2>
-
-<form action="demande?action=save" method="post">
-
-    <c:choose>
-        <c:when test="${not empty locataire}">
-            <%-- Locataire connecté --%>
-            <input type="hidden" name="locataireId" value="${locataire.id}">
-            <p>Demande de : ${locataire.utilisateur.nom} ${locataire.utilisateur.prenom}</p>
-        </c:when>
-
-        <c:otherwise>
-            <%-- Admin --%>
-            <label for="locataire">Locataire :</label>
-            <select name="locataireId" id="locataire" required>
-                <c:forEach var="loc" items="${locataires}">
-                    <option value="${loc.id}">
-                            ${loc.utilisateur.nom} ${loc.utilisateur.prenom}
-                    </option>
-                </c:forEach>
-            </select>
-        </c:otherwise>
-    </c:choose>
-
-    <br><br>
-
-    <label for="unite">Unité :</label>
-    <select name="uniteId" id="unite" required>
-        <c:forEach var="u" items="${unites}">
-            <option value="${u.id}">
-                Unité ${u.numero} - ${u.loyerMensuel} F CFA
-            </option>
-        </c:forEach>
-    </select>
-
-    <br><br>
-    <button type="submit">Envoyer la demande</button>
-</form>
-
-<c:if test="${not empty error}">
-    <p style="color: red">${error}</p>
-</c:if>
-
-=======
 
 <c:choose>
     <c:when test="${sessionScope.userRole eq 'ADMIN'}">
@@ -76,8 +26,6 @@
         .card h3 { margin: 0 0 5px; color: #34495e; font-size: 18px; }
         .card p { margin: 3px 0; font-size: 14px; }
         .btn { padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-top: 5px; }
-        .btn-detail { background: #3498db; color: white; }
-        .btn-detail:hover { background: #2980b9; }
         .btn-request { background: #27ae60; color: white; }
         .btn-request:hover { background: #219150; }
     </style>
@@ -98,9 +46,26 @@
                 <p>Immeuble : ${u.immeuble.nom}</p>
                 <p>Loyer : ${u.loyerMensuel} F CFA</p>
 
-
                 <form action="${pageContext.request.contextPath}/demande?action=save" method="post">
-                    <input type="hidden" name="locataireId" value="${locataire.id}" />
+                    <c:choose>
+                        <c:when test="${not empty locataire}">
+                            <!-- Locataire connecté -->
+                            <input type="hidden" name="locataireId" value="${locataire.id}" />
+                            <p>Demande de : ${locataire.utilisateur.nom} ${locataire.utilisateur.prenom}</p>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- Admin -->
+                            <label for="locataire">Locataire :</label>
+                            <select name="locataireId" id="locataire" required>
+                                <c:forEach var="loc" items="${locataires}">
+                                    <option value="${loc.id}">
+                                            ${loc.utilisateur.nom} ${loc.utilisateur.prenom}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </c:otherwise>
+                    </c:choose>
+
                     <input type="hidden" name="uniteId" value="${u.id}" />
                     <button type="submit" class="btn btn-request">Faire la demande</button>
                 </form>
@@ -108,6 +73,10 @@
         </c:if>
     </c:forEach>
 </div>
->>>>>>> 0249102 (design de l'application)
+
+<c:if test="${not empty error}">
+    <p style="color: red">${error}</p>
+</c:if>
+
 </body>
 </html>

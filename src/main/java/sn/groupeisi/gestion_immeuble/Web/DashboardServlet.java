@@ -89,8 +89,4 @@ public class DashboardServlet extends HttpServlet {
 
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0249102 (design de l'application)

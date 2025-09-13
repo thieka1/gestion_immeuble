@@ -1,18 +1,11 @@
 package sn.groupeisi.gestion_immeuble.Dao;
 
-<<<<<<< HEAD
-import jakarta.persistence.EntityManager;
-=======
 
->>>>>>> 0249102 (design de l'application)
 import sn.groupeisi.gestion_immeuble.Entities.Paiement;
 import sn.groupeisi.gestion_immeuble.Entities.StatutPaiement;
 import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
 
-<<<<<<< HEAD
-=======
 import javax.persistence.EntityManager;
->>>>>>> 0249102 (design de l'application)
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,8 +121,6 @@ public class PaiementImpleDao implements IRepository<Paiement> {
     }
 
 
-<<<<<<< HEAD
-=======
     public List<Paiement> findByProprietaireId(Integer proprietaireId) {
         return entityManager.createQuery(
                         "SELECT p FROM Paiement p " +
@@ -149,5 +140,4 @@ public class PaiementImpleDao implements IRepository<Paiement> {
 
 
 
->>>>>>> 0249102 (design de l'application)
 }

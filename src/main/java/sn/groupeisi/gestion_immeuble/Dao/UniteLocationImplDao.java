@@ -1,17 +1,10 @@
 package sn.groupeisi.gestion_immeuble.Dao;
 
-<<<<<<< HEAD
-import jakarta.persistence.EntityManager;
-=======
->>>>>>> 0249102 (design de l'application)
 import sn.groupeisi.gestion_immeuble.Entities.StatutUnite;
 import sn.groupeisi.gestion_immeuble.Entities.UniteLocation;
 import sn.groupeisi.gestion_immeuble.utils.JPAUtil;
 
-<<<<<<< HEAD
-=======
 import javax.persistence.EntityManager;
->>>>>>> 0249102 (design de l'application)
 import java.util.List;
 
 public class UniteLocationImplDao implements IRepository<UniteLocation> {
@@ -106,8 +99,6 @@ public class UniteLocationImplDao implements IRepository<UniteLocation> {
                 .setParameter("pid", proprietaireId)
                 .getSingleResult();
     }
-<<<<<<< HEAD
-=======
 
     public List<UniteLocation> findByProprietaireId(Integer proprietaireId) {
         return entityManager.createQuery(
@@ -123,7 +114,6 @@ public class UniteLocationImplDao implements IRepository<UniteLocation> {
                 .getResultList();
     }
 
->>>>>>> 0249102 (design de l'application)
     public List<UniteLocation> getByImmeuble(int immeubleId) {
         return entityManager.createQuery(
                         "SELECT u FROM UniteLocation u WHERE u.immeuble.id = :id", UniteLocation.class)
@@ -131,8 +121,6 @@ public class UniteLocationImplDao implements IRepository<UniteLocation> {
                 .getResultList();
     }
 
-<<<<<<< HEAD
-=======
     // Dans UniteLocationImplDao
     public UniteLocation findLastUniteByImmeuble(int immeubleId) {
         try {
@@ -148,6 +136,5 @@ public class UniteLocationImplDao implements IRepository<UniteLocation> {
     }
 
 
->>>>>>> 0249102 (design de l'application)
 
 }

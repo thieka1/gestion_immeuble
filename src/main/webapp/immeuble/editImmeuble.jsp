@@ -1,11 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-<html>
-<head>
-    <title>Modifier un Immeuble</title>
-=======
-
+<c:choose>
+    <c:when test="${sessionScope.userRole eq 'ADMIN'}">
+        <jsp:include page="/navbars/navbarAdmin.jsp"/>
+    </c:when>
+    <c:when test="${sessionScope.userRole eq 'PROPRIETAIRE'}">
+        <jsp:include page="/navbars/navbarProprietaire.jsp"/>
+    </c:when>
+    <c:when test="${sessionScope.userRole eq 'LOCATAIRE'}">
+        <jsp:include page="/navbars/navbarLocataire.jsp"/>
+    </c:when>
+</c:choose>
 <html>
 <head>
     <title>Modifier un Immeuble</title>
@@ -68,18 +73,13 @@
             background-color: #219150;
         }
     </style>
->>>>>>> 0249102 (design de l'application)
 </head>
 <body>
 <div class="form-container">
     <h2>Modifier un Immeuble</h2>
     <form action="immeuble" method="post" enctype="multipart/form-data">
 
-<<<<<<< HEAD
-        <label>Image actuelle :</label><br>
-=======
         <label>Image actuelle :</label>
->>>>>>> 0249102 (design de l'application)
         <c:if test="${not empty immeuble.image}">
             <img src="uploads/${immeuble.image}" width="150" /><br>
         </c:if>
@@ -89,11 +89,6 @@
 
         <!-- ID caché pour l’update -->
         <input type="hidden" name="id" value="${immeuble.id}" />
-<<<<<<< HEAD
-
-        <!-- Action update -->
-=======
->>>>>>> 0249102 (design de l'application)
         <input type="hidden" name="action" value="update" />
 
         <label>Nom :</label>
@@ -111,21 +106,6 @@
         <label>Équipements (séparés par des virgules) :</label>
         <input type="text" name="equipements" value="${equipementsStr}" />
 
-<<<<<<< HEAD
-
-        <label>Propriétaire :</label>
-        <select name="proprietaireId" required>
-            <option value="" disabled>-- Sélectionner un propriétaire --</option>
-            <c:forEach items="${proprietaires}" var="p">
-                <option value="${p.id}" ${p.id == immeuble.proprietaire.id ? 'selected' : ''}>
-                        ${p.prenom} ${p.nom}
-                </option>
-            </c:forEach>
-        </select>
-
-
-        <br><br>
-=======
         <!-- Champ propriétaire seulement pour l'admin -->
         <c:if test="${sessionScope.user.role eq 'ADMIN'}">
             <label>Propriétaire :</label>
