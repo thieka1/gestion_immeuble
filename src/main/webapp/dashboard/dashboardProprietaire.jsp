@@ -336,6 +336,7 @@
 </head>
 <body>
 <div class="main-content">
+
     <div class="container">
         <!-- Header de bienvenue -->
         <div class="welcome-header fade-in">

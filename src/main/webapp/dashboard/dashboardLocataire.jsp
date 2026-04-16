@@ -242,7 +242,7 @@
 
         .btn-request {
             width: 100%;
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Même bleu que "Nouveau immeuble" */
             color: white;
             padding: 12px 20px;
             border: none;
@@ -260,8 +260,9 @@
 
         .btn-request:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4); /* Ombre adaptée */
         }
+
 
         .btn-request::before {
             content: "📝";
@@ -296,14 +297,75 @@
             margin-bottom: 32px;
             line-height: 1.6;
         }
+        .welcome-header {
+            background: linear-gradient(180deg, #1e3c72, #2a5298);
+            padding: 2rem;
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .welcome-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
     </style>
 </head>
 <body>
 <!-- Main Content -->
 <div class="main-content">
-    <div class="page-header">
-        <h1 class="page-title">Immeubles Disponibles</h1>
-        <p class="page-subtitle">Découvrez les propriétés disponibles à la location</p>
+    <div class="welcome-header fade-in">
+        <h1 class="welcome-title">
+            <i class="fas fa-tachometer-alt me-3"></i>
+            Tableau de bord Locataire
+        </h1>
+        <p class="welcome-subtitle">
+            Gérez efficacement votre plateforme immobilière
+        </p>
     </div>
 
     <c:choose>

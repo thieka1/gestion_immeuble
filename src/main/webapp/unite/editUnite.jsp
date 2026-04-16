@@ -1,10 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-<html>
-<head>
-    <title>Modifier une unité</title>
-=======
 <c:choose>
     <c:when test="${sessionScope.userRole eq 'ADMIN'}">
         <jsp:include page="/navbars/navbarAdmin.jsp"/>
@@ -76,50 +71,29 @@
             height: auto;
         }
     </style>
->>>>>>> 0249102 (design de l'application)
 </head>
 <body>
 <div class="form-container">
     <h2>Modifier une unité de location</h2>
     <form action="unite" method="post" enctype="multipart/form-data">
-<<<<<<< HEAD
-        <!-- ID caché pour l’update -->
-        <input type="hidden" name="id" value="${unite.id}" />
-
-
-        <!-- Action update -->
-        <label>Image actuelle :</label><br>
-        <c:if test="${not empty unite.image}">
-            <img src="uploads/${unite.image}" width="150" /><br>
-=======
         <input type="hidden" name="id" value="${unite.id}" />
         <input type="hidden" name="action" value="update" />
 
         <label>Image actuelle :</label>
         <c:if test="${not empty unite.image}">
             <img src="uploads/${unite.image}" alt="Image de l'unité" /><br>
->>>>>>> 0249102 (design de l'application)
         </c:if>
 
         <label>Changer l’image :</label>
         <input type="file" name="image" accept="image/*" />
 
-<<<<<<< HEAD
-        <input type="hidden" name="action" value="update" />
-
-=======
->>>>>>> 0249102 (design de l'application)
         <label>Numéro :</label>
         <input type="text" name="numero" value="${unite.numero}" required />
 
         <label>Nombre de pièces :</label>
         <input type="number" name="nombrePieces" value="${unite.nombrePieces}" required />
 
-<<<<<<< HEAD
-        <label>Superficie :</label>
-=======
         <label>Superficie (m²) :</label>
->>>>>>> 0249102 (design de l'application)
         <input type="number" step="0.01" name="superficie" value="${unite.superficie}" required />
 
         <label>Loyer mensuel :</label>
@@ -128,11 +102,7 @@
         <label>Statut :</label>
         <select name="statut" required>
             <option value="DISPONIBLE" <c:if test="${unite.statut.name() eq 'DISPONIBLE'}">selected</c:if>>Disponible</option>
-<<<<<<< HEAD
-            <option value="LOUE" <c:if test="${unite.statut.name() eq 'LOUEE'}">selected</c:if>>Louée</option>
-=======
             <option value="LOUE" <c:if test="${unite.statut.name() eq 'LOUE'}">selected</c:if>>Louée</option>
->>>>>>> 0249102 (design de l'application)
         </select>
 
         <label>Immeuble :</label>
@@ -145,10 +115,6 @@
             </c:forEach>
         </select>
 
-<<<<<<< HEAD
-        <br><br>
-=======
->>>>>>> 0249102 (design de l'application)
         <button type="submit">Enregistrer les modifications</button>
     </form>
 </div>
